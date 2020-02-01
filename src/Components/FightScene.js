@@ -16,7 +16,6 @@ class FightScene extends Component {
 			<div className = 'fightScene'>
 				{this.props.state.villager.coin}
 				<Button variant = 'contained' className = 'bigButton' onClick = {this.handleClick}> Click! </Button>
-				}
 			</div>
 		);
 	}

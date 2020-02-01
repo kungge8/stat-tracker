@@ -1,7 +1,8 @@
 import {
 	GET_COIN,
 	ADD_COIN,
-	REMOVE_COIN
+	REMOVE_COIN,
+	ADD_WORKER,
 } from '../Actions/villagerActions.js';
 
 const initialState = {
@@ -19,13 +20,26 @@ export default function (state = initialState, action){
 				...state,
 				coin: temp
 			}
-		case REMOVE_COIN:
-			if ( state.coin - action.quant >= 0){
-				temp = state.coin - action.quant;			
+
+		case ADD_WORKER:
+			if ( state.coin - (action.cost * action.quant) >= 0){
 				return {
 					...state,
-					coin: temp
+					Worker: state[action.id] + action.quant
 				}
+			} else {
+				return state;
+			}
+
+
+		case REMOVE_COIN:
+			if ( state.coin - action.cost >= 0){		
+				return {
+					...state,
+					coin: state.coin - action.cost
+				}
+			} else {
+				return state;
 			}
 
 		default:

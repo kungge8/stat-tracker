@@ -9,7 +9,9 @@ import '../Styling/general.css';
 
 class HeroBlock extends Component {
 	handleClick = (e) => {
-		this.props.removeCoin(10);
+		const temp = this.props
+		temp.addWorker(temp.quant, temp.class, temp.cost);
+		temp.removeCoin(temp.quant * temp.cost);
 	}
 
 	render() {

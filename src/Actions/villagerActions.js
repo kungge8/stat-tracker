@@ -10,22 +10,18 @@ export const addCoin = (quant) => (dispatch) => {
 	});
 }
 
-export const removeCoin = (quant) => (dispatch) => {
+export const removeCoin = (cost) => (dispatch) => {
 	return dispatch({
 		type: REMOVE_COIN,
-		quant
+		cost
 	});
 }
 
-export const addWorker = (quant, id) => (dispatch) => {
-	switch (id){
-		case 'Worker':
-			return dispatch({
-				type: ADD_WORKER,
-				quant
-			})
-		default:
-			return;
-	}
-
+export const addWorker = (quant, id, cost) => (dispatch) => {
+	return dispatch({
+		type: ADD_WORKER,
+		quant,
+		id,
+		cost
+	})
 }
