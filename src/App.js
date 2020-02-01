@@ -1,26 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import Header from './Components/Header.js';
+import Sidebar from './Components/Sidebar.js';
+import FightScene from './Components/FightScene.js';
+import HeroesContainer from './Components/HeroesContainer.js';
+import { Provider } from 'react-redux';
+import store from './store';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import './Styling/general.css';
+import { Container } from '@material-ui/core';
+
+
+class App extends Component {
+  render () {
+    return (
+      <Provider store = { store }>
+        <Container maxWidth = {false} disableGutters = {true}>
+          <Header />
+          <div className = 'screen'>
+            <Sidebar />
+            <div className = "mainScreen">
+              <FightScene />
+              <HeroesContainer />
+            </div>
+          </div>
+        </Container>
+      </Provider>
+    );
+  }
 }
 
 export default App;
