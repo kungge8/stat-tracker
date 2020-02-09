@@ -6,7 +6,7 @@ export default class HeroesContainer extends Component {
 		return (
 			<div className = "heroContainer">
 				<HeroBlock class = 'Worker' cost = {10} quant = {1} />
-				<HeroBlock />
+				<HeroBlock class = 'Scientist' cost = {10} quant = {1} />
 				<HeroBlock />
 				<HeroBlock />
 				<HeroBlock />

@@ -8,6 +8,7 @@ import {
 const initialState = {
 	coin: 0,
 	Worker: 0,
+	Scientist: 0,
 }
 
 let temp = 0;
@@ -22,10 +23,10 @@ export default function (state = initialState, action){
 			}
 
 		case ADD_WORKER:
-			if ( state.coin - (action.cost * action.quant) >= 0){
+			if (state.coin - (action.cost * action.quant) >= 0){
 				return {
 					...state,
-					Worker: state[action.id] + action.quant
+					[action.id]: state[action.id] + action.quant
 				}
 			} else {
 				return state;
@@ -33,7 +34,7 @@ export default function (state = initialState, action){
 
 
 		case REMOVE_COIN:
-			if ( state.coin - action.cost >= 0){		
+			if (state.coin - action.cost >= 0){		
 				return {
 					...state,
 					coin: state.coin - action.cost
