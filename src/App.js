@@ -1,15 +1,10 @@
 import React, { Component } from 'react';
-// import Header from './Components/Header.js';
-// import Sidebar from './Components/Sidebar.js';
-// import FightScene from './Components/FightScene.js';
-// import HeroesContainer from './Components/HeroesContainer.js';
 import { Provider } from 'react-redux';
 import store from './store';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
 } from "react-router-dom";
 import {
   Header,
@@ -17,6 +12,7 @@ import {
   FightScene,
   HeroesContainer,
   LaborContainer,
+  ScienceContainer,
 } from './Components';
 
 import './Styling/general.css';
@@ -35,6 +31,9 @@ class App extends Component {
               <div className = "mainScreen">
                 <FightScene />
                 <Switch>
+                  <Route path = '/science'>
+                    <ScienceContainer />
+                  </Route>
                   <Route path = '/labor'>
                     <LaborContainer />
                   </Route>
@@ -52,3 +51,4 @@ class App extends Component {
 }
 
 export default App;
+

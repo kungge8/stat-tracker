@@ -4,6 +4,7 @@ import HeroBlock from './HeroBlock.js';
 import HeroesContainer from './HeroesContainer.js';
 import LaborContainer from './LaborContainer.js';
 import Sidebar from './Sidebar.js';
+import ScienceContainer from './ScienceContainer.js';
 
 export { 
 	FightScene,
@@ -11,4 +12,5 @@ export {
 	HeroBlock,
  	HeroesContainer,
  	LaborContainer,
- 	Sidebar };
+ 	Sidebar,
+ 	ScienceContainer };
