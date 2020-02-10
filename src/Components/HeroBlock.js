@@ -8,22 +8,27 @@ import { removeCoin,
 import '../Styling/general.css';
 
 class HeroBlock extends Component {
-	handleClick = (e) => {
-		const temp = this.props
-		temp.addWorker(temp.quant, temp.class, temp.cost);
-		temp.removeCoin(temp.quant * temp.cost);
+	handleBuy = (e) => {
+		const temp = this.props;
+		const curr = this.props.currency;
+		const cl = this.props[this.props.class];
+		console.log(cl.cost);
+		if (cl.cost < curr.Coin.quant){
+			temp.addWorker(cl.name, this.props.quant);
+			temp.removeCoin('Coin', cl.cost);
+		}
 	}
 
 	render() {
 		return (
 			<div className = "mainBody">
 				<header>
-					{this.props.class}
-					{this.props[this.props.class]}
+					{this.props[this.props.class].name}
+					{this.props[this.props.class].quant}
 				</header>
 				<div>
 					THESE ARE THE HERO STATS
-					<Button variant = 'text' onClick = {this.handleClick}> BUY </Button>
+					<Button variant = 'text' onClick = {this.handleBuy}> BUY </Button>
 				</div>
 			</div>
 		);
@@ -31,6 +36,7 @@ class HeroBlock extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
+	currency: state.currency,
 	[ownProps.class]: state.villager[ownProps.class]
 });
 

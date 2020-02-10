@@ -9,18 +9,18 @@ export const addCoin = () => (dispatch) => {
 	});
 }
 
-export const removeCoin = (cost) => (dispatch) => {
+export const removeCoin = (id, cost) => (dispatch) => {
 	return dispatch({
 		type: REMOVE_COIN,
-		cost
+		id,
+		cost,
 	});
 }
 
-export const addWorker = (quant, id, cost) => (dispatch) => {
+export const addWorker = (id, quant) => (dispatch) => {
 	return dispatch({
 		type: ADD_WORKER,
 		quant,
 		id,
-		cost
 	})
 }

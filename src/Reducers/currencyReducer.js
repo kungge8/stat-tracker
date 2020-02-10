@@ -6,43 +6,50 @@ import {
 } from '../Actions/villagerActions.js';
 
 const initialState = {
-	coin: {
-		name: 'coin',
+	Coin: {
+		name: 'Coin',
 		quant: 0,
 		rate: 1,
 		rateMult: 1,
 		cap: 5000,
 	},
-	wood: {
-		name: 'wood',
+	Wood: {
+		name: 'Wood',
 		quant: 0,
 		rate: 0,
 		rateMult: 1,
 		cap: 100,
 	},
-	iron: {
-		name: 'iron',
+	Iron: {
+		name: 'Iron',
 		quant: 0,
 		rate: 0,
 		rateMult: 1,
 		cap: 100,
 	},
-	grain: {
-		name: 'grain',
+	Grain: {
+		name: 'Grain',
 		quant: 0,
 		rate: 0,
 		rateMult: 1,
 		cap: 100,
 	},
-	meat: {
-		name: 'meat',
+	Meat: {
+		name: 'Meat',
 		quant: 0,
 		rate: 0,
 		rateMult: 1,
 		cap: 100,
 	},
-	research: {
-		name: 'research',
+	Research: {
+		name: 'Research',
+		quant: 0,
+		rate: 0,
+		rateMult: 1,
+		cap: 100,
+	},
+	Faith: {
+		name: 'Faith',
 		quant: 0,
 		rate: 0,
 		rateMult: 1,
@@ -59,35 +66,35 @@ export default function (state = initialState, action){
 				Object.entries(state).reduce((n, v) => {
 					const t = v[0];
 					const y = v[1];
-					return {
-						...n,
-						[t]: {
-							...y,
-							quant: y.quant + (y.rate * y.rateMult)
+					const u = y.rate * y.rateMult;
+					if (y.quant - y.cap >= 0 || y.quant + u >= y.cap) {
+						return {
+							...n,
+							[t]: {
+								...y,
+								quant: y.cap
+							}
+						}
+					} else {
+						return {
+							...n,
+							[t]: {
+								...y,
+								quant: y.quant + u
+							}
 						}
 					}
 				}, {})
 			);
-
-		case ADD_WORKER:
-			if (state.coin - (action.cost * action.quant) >= 0){
-				return {
-					...state,
-					[action.id]: state[action.id] + action.quant
-				}
-			} else {
-				return state;
-			}
-
-
+			
 		case REMOVE_COIN:
-			if (state.coin - action.cost >= 0){		
-				return {
-					...state,
-					coin: state.coin - action.cost
+			const t = state[action.id];
+			return {
+				...state,
+				[action.id]: {
+					...t,
+					quant: t.quant - action.cost
 				}
-			} else {
-				return state;
 			}
 
 		default:

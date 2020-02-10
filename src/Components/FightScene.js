@@ -6,10 +6,6 @@ import { addCoin } from '../Actions/villagerActions.js';
 import '../Styling/general.css';
 
 class FightScene extends Component {
-	updateStock (){
-
-	}
-
 	componentDidMount () {
 	    setInterval(()=> {
 	    	this.props.addCoin();
@@ -27,28 +23,19 @@ class FightScene extends Component {
 		clearInterval();
 	}
 
+
 	render() {
 		const c = this.props.state.currency;
 		return (
 			<div className = 'fightScene'>
-				<text>
-					Coin: {c.coin.quant}
-				</text>
-				<text>
-					Wood: {c.wood.quant}
-				</text>
-				<text>
-					Iron: {c.iron.quant}
-				</text>
-				<text>
-					Grain: {c.grain.quant}
-				</text>
-				<text>
-					Meat: {c.meat.quant}
-				</text>
-				<text>
-					Research: {c.research.quant}
-				</text>
+				{Object.entries(c).map((n) => {
+					const y = n[1];
+					return (
+						<text key = {y.name}>
+							{y.name}: {y.quant}
+						</text>
+					);
+				})}
 			</div>
 		);
 	}
