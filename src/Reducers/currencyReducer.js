@@ -1,8 +1,9 @@
 import {
+	TICK,
 	GET_COIN,
 	ADD_COIN,
 	REMOVE_COIN,
-	ADD_WORKER,
+	CHANGE_RATE,
 } from '../Actions/villagerActions.js';
 
 const initialState = {
@@ -61,7 +62,7 @@ const initialState = {
 
 export default function (state = initialState, action){
 	switch (action.type){
-		case ADD_COIN:
+		case TICK:
 			return (
 				Object.entries(state).reduce((n, v) => {
 					const t = v[0];
@@ -80,22 +81,41 @@ export default function (state = initialState, action){
 							...n,
 							[t]: {
 								...y,
-								quant: y.quant + u
+								quant: Math.round(y.quant + u)
 							}
 						}
 					}
 				}, {})
 			);
-			
+		case CHANGE_RATE:
+			const u = state[action.id]
+			return {
+				...state,
+				[action.id]: {
+					...u,
+					rate: u.rate + action.rate
+				}
+			};
+
+		case ADD_COIN:
+			const y = state[action.id];
+			return {
+				...state,
+				[action.id]: {
+					...y,
+					quant: Math.round(y.quant + action.quant)
+				}
+			};		
+
 		case REMOVE_COIN:
 			const t = state[action.id];
 			return {
 				...state,
 				[action.id]: {
 					...t,
-					quant: t.quant - action.cost
+					quant: Math.round(t.quant - action.quant)
 				}
-			}
+			};
 
 		default:
 			return state;

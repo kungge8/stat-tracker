@@ -1,21 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { addCoin } from '../Actions/villagerActions.js';
+import { tick } from '../Actions/villagerActions.js';
 
 import '../Styling/general.css';
 
 class FightScene extends Component {
 	componentDidMount () {
 	    setInterval(()=> {
-	    	this.props.addCoin();
+	    	this.props.tick();
 	    }, 1000 / (this.props.state.game.speed * this.props.state.game.speedMult));
 	}
 
 	componenDidUpdate (){
 		clearInterval();
 	    setInterval(()=> {
-	    	this.props.addCoin();
+	    	this.props.tick();
 	    }, 1000 / (this.props.state.game.speed * this.props.state.game.speedMult));
 	}
 
@@ -45,4 +45,4 @@ const mapStateToProps = (state) => ({
 	state
 });
 
-export default connect (mapStateToProps, { addCoin })(FightScene);
+export default connect (mapStateToProps, { tick })(FightScene);
