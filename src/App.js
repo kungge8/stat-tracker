@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import store from './store';
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
   Switch,
   Route,
+  Link,
 } from "react-router-dom";
 
 import {

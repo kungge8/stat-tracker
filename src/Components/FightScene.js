@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { Box,
-		 Card, 
-		 Container } from '@material-ui/core';
+import {
+	Box,
+	Card, 
+	Container
+} from '@material-ui/core';
 
 import { tick } from '../Actions/villagerActions.js';
 

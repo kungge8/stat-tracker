@@ -2,7 +2,7 @@ export const loadState = () => {
   try {
     const serializedState = localStorage.getItem('villageIdleGameState');
     if (serializedState === null) {
-      return undefined;
+      return {};
     }
     return JSON.parse(serializedState);
   } catch (err) {
@@ -18,3 +18,11 @@ export const saveState = (state) => {
     // ignore write errors
   }
 };
+
+export const clearState = () => {
+	try {
+		localStorage.removeItem('villageIdleGameState');
+	} catch {
+		//unsure if necessary
+	}
+}
