@@ -1,8 +1,15 @@
 import React, { Component } from 'react';
-import { List, ListItem, ListItemText } from '@material-ui/core';
 import { Link } from 'react-router-dom'
 
-import '../Styling/general.css';
+import { List,
+		 ListItem,
+		 ListItemText,
+		 Icon } from '@material-ui/core';
+
+import { Home,
+		 Work,
+		 Build,
+		 Colorize } from '@material-ui/icons';
 
 export default class Sidebar extends Component {
 	render() {
@@ -10,16 +17,19 @@ export default class Sidebar extends Component {
 			<List disablePadding dense className = "sidebar">
 				<Link to = '/'>
 					<ListItem button>
-						<ListItemText>HOME</ListItemText>
+						<Home />
+						<ListItemText>VILLAGE</ListItemText>
 					</ListItem>
 				</Link>
 				<Link to = '/labor'>
 					<ListItem button>
+					<Work />
 						<ListItemText>LABOR</ListItemText>
 					</ListItem>
 				</Link>
 				<Link to = '/science'>
 					<ListItem button>
+						<Colorize />
 						<ListItemText>SCIENCE</ListItemText>
 					</ListItem>
 				</Link>

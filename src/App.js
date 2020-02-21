@@ -6,6 +6,7 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
+
 import {
   Header,
   Sidebar,
@@ -14,6 +15,9 @@ import {
   LaborContainer,
   ScienceContainer,
 } from './Components';
+import {
+  Box,
+} from '@material-ui/core';
 
 import './Styling/general.css';
 import { Container } from '@material-ui/core';
@@ -24,11 +28,11 @@ class App extends Component {
     return (
       <Router>
         <Provider store = { store }>
-          <Container maxWidth = {false} disableGutters = {true}>
+          <Container className = 'mainBody' maxWidth = {'xl'} disableGutters = {false}>
             <Header />
-            <div className = 'screen'>
+            <Box className = 'screen'>
               <Sidebar />
-              <div className = "mainScreen">
+              <Box className = "mainScreen">
                 <FightScene />
                 <Switch>
                   <Route path = '/science'>
@@ -41,8 +45,8 @@ class App extends Component {
                     <HeroesContainer />
                   </Route>
                 </Switch>
-              </div>
-            </div>
+              </Box>
+            </Box>
           </Container>
         </Provider>
       </Router>

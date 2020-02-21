@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
-import { Button } from '@material-ui/core';
 import { connect } from 'react-redux';
 
-import { addCoin,
-		 removeCoin,
-		 addWorker,
-		 removeWorker,
-		 changeRate } from '../Actions/villagerActions.js';
+import {
+	Button,
+	Box, 
+	Container
+} from '@material-ui/core';
 
-import '../Styling/general.css';
+import {
+	addCoin,
+	removeCoin,
+	addWorker,
+	removeWorker,
+	changeRate
+} from '../Actions/villagerActions.js';
 
 class HeroBlock extends Component {
 	handleBuy = (e) => {
@@ -38,18 +43,16 @@ class HeroBlock extends Component {
 	render() {
 		const s = this.props[this.props.class];
 		return (
-			<div className = "mainBody">
-				<header>
-					{s.name}
-					{Math.round(s.cost * s.currentMult)}
-					{s.quant}
-				</header>
-				<div>
-					THESE ARE THE HERO STATS
-					<Button variant = 'text' onClick = {this.handleBuy}> BUY </Button>
+			<Box className = 'heroBlockMainBody'>
+				<Box className = 'infoBlock'>
+					<div>{s.name}: {s.quant}</div>
+				</Box>
+				<Box className = 'buttonBlock'>
 					<Button variant = 'text' onClick = {this.handleSell}> SELL </Button>
-				</div>
-			</div>
+					<Button variant = 'text' onClick = {this.handleBuy}> BUY </Button>
+					<div>Cost: {Math.round(s.cost * s.currentMult)}</div>
+				</Box>
+			</Box>
 		);
 	}
 }

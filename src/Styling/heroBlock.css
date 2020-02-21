@@ -1,0 +1,15 @@
+.heroBlockMainBody {
+	display: flex;
+	align-items: center;
+}
+
+.infoBlock {
+	flex-grow: 8;
+}
+
+.buttonBlock {
+	flex-grow: 2;
+	display: flex;
+	flex-direction: row-reverse;
+	align-items: center;
+}

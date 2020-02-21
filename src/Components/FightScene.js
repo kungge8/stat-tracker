@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { tick } from '../Actions/villagerActions.js';
+import { Box,
+		 Card, 
+		 Container } from '@material-ui/core';
 
-import '../Styling/general.css';
+import { tick } from '../Actions/villagerActions.js';
 
 class FightScene extends Component {
 	componentDidMount () {
@@ -27,16 +29,16 @@ class FightScene extends Component {
 	render() {
 		const c = this.props.state.currency;
 		return (
-			<div className = 'fightScene'>
+			<Card className = 'fightScene'>
 				{Object.entries(c).map((n) => {
 					const y = n[1];
 					return (
-						<text key = {y.name}>
+						<Box className = 'currency' key = {y.name}>
 							{y.name}: {y.quant}
-						</text>
+						</Box>
 					);
 				})}
-			</div>
+			</Card>
 		);
 	}
 }

@@ -1,37 +1,64 @@
-.screen {
-	display: flex;
-	height: 100%;
-	border-style: solid;
+@import './heroBlock.css';
+
+body {
+	background-color: #D3D3D3;
+}
+hr {
+	margin-left: 10%;
+	margin-right: 10%;
+	border: .5px solid grey;
 }
 
+a:link {
+	text-decoration: none;
+	color: black;
+}
+
+a:visited {
+	text-decoration: none;
+	color: black;
+}
+
+a:hover {
+	text-decoration: none;
+	color: black;
+}
+
+a:active {
+	text-decoration: none;
+	color: black;
+}
+
+.screen {
+	display: flex;
+	border: 1px solid black;
+	background-color: #F0F0F0;
+}
+
+/*Styles Sidebar*/
 .sidebar {
 	flex: 2;
 	max-width: 240px;
-	background-color: grey;
 }
 
 .mainScreen {
 	flex: 8;
-	background-color: red;
 }
 
 .fightScene {
-	background-color: blue;
 	min-height: 240px;
 	display: flex;
-	justify-content: center;
-	color: white;
+	padding: 10px;
+	margin: 10px 10px 15px 10px;
+	flex-direction: row;
+	justify-content: space-evenly;
 }
 
-.bigButton {
-	align-self: flex-end;
-	width: 300px;
-}
-
+/*Styles heroContainer main*/
 .heroContainer {
-	background-color: green;
 	display: flex;
-	height: 600px;
+	padding: 10px;
+	margin: 0px 10px 15px 10px;
 	overflow-y: scroll;
 	flex-direction: column;
 }
