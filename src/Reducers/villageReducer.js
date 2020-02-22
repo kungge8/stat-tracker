@@ -4,6 +4,7 @@ import {
 } from '../Actions/villagerActions.js';
 
 const initialState = {
+	population: 0,
 	Lumberjack: {
 		name: 'Lumberjack',
 		currency: 'Wood',
@@ -62,6 +63,7 @@ export default function (state = initialState, action){
 				...state,
 				[action.id]: {
 					...t,
+					population: state.population + 1;
 					quant: state[action.id].quant + action.quant,
 					currentMult: +(state[action.id].currentMult * state[action.id].costMult).toFixed(2)
 				}
@@ -72,6 +74,7 @@ export default function (state = initialState, action){
 				...state,
 				[action.id]: {
 					...y,
+					population: state.population - 1;
 					quant: state[action.id].quant - action.quant,
 					currentMult: +(state[action.id].currentMult / state[action.id].costMult).toFixed(2)
 				}
