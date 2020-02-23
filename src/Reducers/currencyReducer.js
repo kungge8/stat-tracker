@@ -4,7 +4,12 @@ import {
 	ADD_COIN,
 	REMOVE_COIN,
 	CHANGE_RATE,
+	ADD_WORKER,
+	REMOVE_WORKER,
 } from '../Actions/villagerActions.js';
+import {
+	RESET_GAME,
+} from '../Actions/gameActions.js';
 
 const initialState = {
 	Coin: {
@@ -12,6 +17,8 @@ const initialState = {
 		quant: 0,
 		rate: 1,
 		rateMult: 1,
+		frequency: 1,
+		phase: 0,
 		cap: 5000,
 	},
 	Wood: {
@@ -19,6 +26,8 @@ const initialState = {
 		quant: 0,
 		rate: 0,
 		rateMult: 1,
+		frequency: 3,
+		phase: 0,		
 		cap: 100,
 	},
 	Iron: {
@@ -26,6 +35,8 @@ const initialState = {
 		quant: 0,
 		rate: 0,
 		rateMult: 1,
+		frequency: 4,
+		phase: 0,
 		cap: 100,
 	},
 	Grain: {
@@ -33,6 +44,8 @@ const initialState = {
 		quant: 0,
 		rate: 0,
 		rateMult: 1,
+		frequency: 2,
+		phase: 0,
 		cap: 100,
 	},
 	Meat: {
@@ -40,6 +53,8 @@ const initialState = {
 		quant: 0,
 		rate: 0,
 		rateMult: 1,
+		frequency: 5,
+		phase: 0,
 		cap: 100,
 	},
 	Research: {
@@ -47,6 +62,8 @@ const initialState = {
 		quant: 0,
 		rate: 0,
 		rateMult: 1,
+		frequency: 6,
+		phase: 0,
 		cap: 100,
 	},
 	Faith: {
@@ -54,6 +71,8 @@ const initialState = {
 		quant: 0,
 		rate: 0,
 		rateMult: 1,
+		frequency: 7,
+		phase: 0,
 		cap: 100,
 	},
 }
@@ -68,25 +87,61 @@ export default function (state = initialState, action){
 					const t = v[0];
 					const y = v[1];
 					const u = y.rate * y.rateMult;
-					if (y.quant - y.cap >= 0 || y.quant + u >= y.cap) {
-						return {
-							...n,
-							[t]: {
-								...y,
-								quant: y.cap
+					const currPhase = --y.phase;
+
+					if (currPhase <= 0){
+						if (y.quant - y.cap >= 0) {
+							return {
+								...n,
+								[t]: {
+									...y,
+									phase: y.frequency,
+								}
 							}
-						}
+						} else if (y.quant + u >= y.cap) {
+							return {
+								...n,
+								[t]: {
+									...y,
+									quant: y.cap,
+									phase: y.frequency,
+								}
+							}
+						} else {
+							return {
+								...n,
+								[t]: {
+									...y,
+									quant: Math.round(y.quant + u),
+									phase: y.frequency,
+								}
+							}						
+						}						
 					} else {
-						return {
+						return  {
 							...n,
 							[t]: {
 								...y,
-								quant: Math.round(y.quant + u)
+								phase: currPhase,
 							}
 						}
-					}
+					}		
 				}, {})
 			);
+
+		case RESET_GAME: 
+			return initialState;
+
+		case ADD_WORKER:
+			return {
+				...state,
+			};
+
+		case REMOVE_WORKER:
+			return {
+				...state,
+			}
+
 		case CHANGE_RATE:
 			const u = state[action.id]
 			return {

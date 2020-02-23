@@ -2,6 +2,10 @@ import {
 	ADD_WORKER,
 	REMOVE_WORKER,
 } from '../Actions/villagerActions.js';
+import {
+	RESET_GAME,
+} from '../Actions/gameActions.js';
+
 
 const initialState = {
 	population: 0,
@@ -61,9 +65,9 @@ export default function (state = initialState, action){
 			const t = state[action.id];
 			return {
 				...state,
+				population: state.population + 1,
 				[action.id]: {
 					...t,
-					population: state.population + 1;
 					quant: state[action.id].quant + action.quant,
 					currentMult: +(state[action.id].currentMult * state[action.id].costMult).toFixed(2)
 				}
@@ -72,13 +76,17 @@ export default function (state = initialState, action){
 			const y = state[action.id];
 			return {
 				...state,
+				population: state.population - 1,
 				[action.id]: {
 					...y,
-					population: state.population - 1;
 					quant: state[action.id].quant - action.quant,
 					currentMult: +(state[action.id].currentMult / state[action.id].costMult).toFixed(2)
 				}
 			}
+
+		case RESET_GAME: 
+			return initialState;
+
 		default:
 			return state;
 	}

@@ -35,7 +35,7 @@ class HeroBlock extends Component {
 
 		if(cl.quant > 0){
 			temp.removeWorker(cl.name, this.props.quant);
-			temp.addCoin('Coin', Math.round(cl.cost * cl.currentMult));
+			temp.addCoin('Coin', Math.round(cl.cost * cl.currentMult / cl.costMult));
 			temp.changeRate(cl.currency, this.props.quant * -1);
 		}
 	}
