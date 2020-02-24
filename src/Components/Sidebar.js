@@ -33,18 +33,6 @@ export default class Sidebar extends Component {
 						<ListItemText>SCIENCE</ListItemText>
 					</ListItem>
 				</Link>
-				<ListItem button>
-					<ListItemText>STUFF</ListItemText>
-				</ListItem>
-				<ListItem button>
-					<ListItemText>STUFF</ListItemText>
-				</ListItem>
-				<ListItem button>
-					<ListItemText>STUFF</ListItemText>
-				</ListItem>
-				<ListItem button>
-					<ListItemText>STUFF</ListItemText>
-				</ListItem>
 			</List>
 		);
 	}

@@ -13,7 +13,10 @@ const initialState = {
 		name: 'Lumberjack',
 		currency: 'Wood',
 		quant: 0,
-		cost: 10,
+		cost: [{
+			currency: 'Coin',
+			quant: 10,
+		}],
 		currentMult: 1,
 		costMult: 1.1,
 	},
@@ -21,7 +24,13 @@ const initialState = {
 		name: 'Miner',
 		currency: 'Iron',
 		quant: 0,
-		cost: 10,
+		cost: [{
+			currency: 'Coin',
+			quant: 10,
+		},{
+			currency: 'Wood',
+			quant: 10,
+		}],
 		currentMult: 1,
 		costMult: 1.1,
 	},
@@ -29,7 +38,10 @@ const initialState = {
 		name: 'Farmer',
 		currency: 'Grain',
 		quant: 0,
-		cost: 10,
+		cost: [{
+			currency: 'Coin',
+			quant: 10,
+		}],
 		currentMult: 1,
 		costMult: 1.1,
 	},
@@ -37,7 +49,10 @@ const initialState = {
 		name: 'Hunter',
 		currency: 'Meat',
 		quant: 0,
-		cost: 10,
+		cost: [{
+			currency: 'Coin',
+			quant: 10,
+		}],
 		currentMult: 1,
 		costMult: 1.1,
 	},
@@ -45,7 +60,10 @@ const initialState = {
 		name: 'Scientist',
 		currency: 'Research',
 		quant: 0,
-		cost: 10,
+		cost: [{
+			currency: 'Coin',
+			quant: 10,
+		}],
 		currentMult: 1,
 		costMult: 1.1,
 	},
@@ -53,11 +71,38 @@ const initialState = {
 		name: 'Priest',
 		currency: 'Faith',
 		quant: 0,
-		cost: 10,
+		cost: [{
+			currency: 'Coin',
+			quant: 10,
+		}],
 		currentMult: 1,
 		costMult: 1.1,
 	}
 }
+
+export const buyCostSelector = (state, name) => {
+	const t = state.villager[name];
+	return t.cost.map((n, i) => {
+		return {
+			...n,
+			quant: t.cost[i].quant * t.currentMult  
+		}
+	})
+}
+
+export const sellCostSelector = (state, name) => {
+	const t = state.villager[name];
+	return t.cost.map((n, i) => {
+		return {
+			...n,
+			quant: t.cost[i].quant * (t.currentMult / t.costMult)  
+		}
+	})
+}
+
+export const affectedCurrencySelector = (state, name) => state.villager[name].currency;
+
+export const classesSelector = (state) => Object.entries(state.villager).map( n => n.name );
 
 export default function (state = initialState, action){
 	switch (action.type){

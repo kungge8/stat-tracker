@@ -8,12 +8,17 @@ import {
 } from '@material-ui/core';
 
 import {
-	addCoin,
-	removeCoin,
 	addWorker,
 	removeWorker,
-	changeRate
 } from '../Actions/villagerActions.js';
+import {
+	buyCostSelector,
+	sellCostSelector,
+	affectedCurrencySelector
+} from '../Reducers/villageReducer.js';
+import {
+	verifyCostAvailable,
+} from '../Functions/mathFunctions.js';
 
 class HeroBlock extends Component {
 	handleBuy = (e) => {
@@ -21,10 +26,8 @@ class HeroBlock extends Component {
 		const curr = this.props.currency;
 		const cl = this.props[this.props.class];
 
-		if (Math.round(cl.cost * cl.currentMult) <= curr.Coin.quant){
-			temp.addWorker(cl.name, this.props.quant);
-			temp.removeCoin('Coin', Math.round(cl.cost * cl.currentMult));
-			temp.changeRate(cl.currency, this.props.quant);
+		if (verifyCostAvailable(temp.buyCost, curr)){
+			temp.addWorker(temp.class, temp.quant, temp.targetCurrency, temp.buyCost);
 		}
 	}
 
@@ -34,9 +37,7 @@ class HeroBlock extends Component {
 		const cl = this.props[this.props.class];
 
 		if(cl.quant > 0){
-			temp.removeWorker(cl.name, this.props.quant);
-			temp.addCoin('Coin', Math.round(cl.cost * cl.currentMult / cl.costMult));
-			temp.changeRate(cl.currency, this.props.quant * -1);
+			temp.removeWorker(temp.class, temp.quant, temp.targetCurrency, temp.sellCost);
 		}
 	}
 
@@ -50,7 +51,15 @@ class HeroBlock extends Component {
 				<Box className = 'buttonBlock'>
 					<Button variant = 'text' onClick = {this.handleSell}> SELL </Button>
 					<Button variant = 'text' onClick = {this.handleBuy}> BUY </Button>
-					<div>Cost: {Math.round(s.cost * s.currentMult)}</div>
+					<div> Cost:
+						{this.props.buyCost.map((n, i) => {
+							const t = this.props.buyCost[i];
+								return (
+									<div key = {t.currency}> {t.currency + ": " + (Math.round(t.quant * s.currentMult))} </div>
+								);
+							})
+						}
+					</div>
 				</Box>
 			</Box>
 		);
@@ -59,7 +68,10 @@ class HeroBlock extends Component {
 
 const mapStateToProps = (state, ownProps) => ({
 	currency: state.currency,
-	[ownProps.class]: state.villager[ownProps.class]
+	[ownProps.class]: state.villager[ownProps.class],
+	buyCost: buyCostSelector(state, ownProps.class),
+	sellCost: sellCostSelector(state, ownProps.class),
+	targetCurrency: affectedCurrencySelector(state, ownProps.class),
 });
 
-export default connect(mapStateToProps, { addCoin, removeCoin, addWorker, removeWorker, changeRate })(HeroBlock);
+export default connect(mapStateToProps, { addWorker, removeWorker })(HeroBlock);

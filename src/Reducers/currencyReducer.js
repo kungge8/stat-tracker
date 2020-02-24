@@ -133,14 +133,27 @@ export default function (state = initialState, action){
 			return initialState;
 
 		case ADD_WORKER:
+			//recieves quant, affected currency, cost
+			const removedCost = action.cost.reduce((a, n) => {
+				a[n.currency].quant = Math.round(a[n.currency].quant - n.quant);
+				return a;
+			}, JSON.parse(JSON.stringify(state)));
+
+			removedCost[action.modifiedCurrency].rate = removedCost[action.modifiedCurrency].rate + action.quant;
 			return {
-				...state,
+				...removedCost,
 			};
 
 		case REMOVE_WORKER:
+			const addedCost = action.cost.reduce((a, n) => {
+				a[n.currency].quant = Math.round(a[n.currency].quant + n.quant);
+				return a;
+			}, JSON.parse(JSON.stringify(state)));
+
+			addedCost[action.modifiedCurrency].rate = addedCost[action.modifiedCurrency].rate - action.quant;
 			return {
-				...state,
-			}
+				...addedCost,
+			};
 
 		case CHANGE_RATE:
 			const u = state[action.id]
@@ -162,7 +175,7 @@ export default function (state = initialState, action){
 				}
 			};		
 
-		case REMOVE_COIN:
+		case REMOVE_COIN:			
 			const t = state[action.id];
 			return {
 				...state,

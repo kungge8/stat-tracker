@@ -1,11 +1,21 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-export default class LaborContainer extends Component {
+import {
+	Box,
+	Card
+} from '@material-ui/core';
+
+class LaborContainer extends Component {
 	render() {
 		return (
-			<div>
-				THIS IS THE LABOR CONTAINER
-			</div>
+			<Box>
+				<Card className = "bodyContainer">
+					LABORRRRRRR
+				</Card>
+			</Box>
 		);
 	}
 }
+
+export default connect( null )(LaborContainer);

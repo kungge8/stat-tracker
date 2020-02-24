@@ -11,7 +11,7 @@ import {
 export default class HeroesContainer extends Component {
 	render() {
 		return (
-			<Card className = "heroContainer">
+			<Card className = "bodyContainer">
 				<HeroBlock class = 'Scientist' quant = {1} />
 				<hr />
 				<HeroBlock class = 'Lumberjack' quant = {1} />

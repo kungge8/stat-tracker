@@ -12,42 +12,22 @@ export const tick = () => (dispatch) => {
 	});
 }
 
-export const addCoin = (id, quant) => (dispatch) => {
-	return dispatch({
-		type: ADD_COIN,
-		id,
-		quant,
-	});
-}
-
-export const removeCoin = (id, quant) => (dispatch) => {
-	return dispatch({
-		type: REMOVE_COIN,
-		id,
-		quant,
-	});
-}
-
-export const addWorker = (id, quant) => (dispatch) => {
+export const addWorker = (id, quant, modifiedCurrency, cost) => (dispatch) => {
 	return dispatch({
 		type: ADD_WORKER,
 		quant,
 		id,
+		modifiedCurrency,
+		cost
 	});
 }
 
-export const removeWorker = (id, quant) => (dispatch) => {
+export const removeWorker = (id, quant, modifiedCurrency, cost) => (dispatch) => {
 	return dispatch({
 		type: REMOVE_WORKER,
 		id,
 		quant,
-	});
-}
-
-export const changeRate = (id, rate) => (dispatch) => {
-	return dispatch({
-		type: CHANGE_RATE,
-		id,
-		rate,
+		modifiedCurrency,
+		cost
 	});
 }
