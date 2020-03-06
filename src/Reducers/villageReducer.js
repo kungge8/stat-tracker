@@ -8,10 +8,9 @@ import {
 
 
 const initialState = {
-	population: 0,
 	Lumberjack: {
 		name: 'Lumberjack',
-		currency: 'Wood',
+		targetCurrency: 'Wood',
 		quant: 0,
 		cost: [{
 			currency: 'Coin',
@@ -22,7 +21,7 @@ const initialState = {
 	},
 	Miner: {
 		name: 'Miner',
-		currency: 'Iron',
+		targetCurrency: 'Iron',
 		quant: 0,
 		cost: [{
 			currency: 'Coin',
@@ -36,7 +35,7 @@ const initialState = {
 	},
 	Farmer: {
 		name: 'Farmer',
-		currency: 'Grain',
+		targetCurrency: 'Grain',
 		quant: 0,
 		cost: [{
 			currency: 'Coin',
@@ -47,7 +46,7 @@ const initialState = {
 	},
 	Hunter: {
 		name: 'Hunter',
-		currency: 'Meat',
+		targetCurrency: 'Meat',
 		quant: 0,
 		cost: [{
 			currency: 'Coin',
@@ -58,7 +57,7 @@ const initialState = {
 	},
 	Scientist: {
 		name: 'Scientist',
-		currency: 'Research',
+		targetCurrency: 'Research',
 		quant: 0,
 		cost: [{
 			currency: 'Coin',
@@ -69,7 +68,7 @@ const initialState = {
 	},
 	Priest: {
 		name: 'Priest',
-		currency: 'Faith',
+		targetCurrency: 'Faith',
 		quant: 0,
 		cost: [{
 			currency: 'Coin',
@@ -80,8 +79,9 @@ const initialState = {
 	}
 }
 
-export const buyCostSelector = (state, name) => {
-	const t = state.villager[name];
+//selectors
+export const buyCostSelector = (state, key) => {
+	const t = state.villager[key];
 	return t.cost.map((n, i) => {
 		return {
 			...n,
@@ -90,8 +90,8 @@ export const buyCostSelector = (state, name) => {
 	})
 }
 
-export const sellCostSelector = (state, name) => {
-	const t = state.villager[name];
+export const sellCostSelector = (state, key) => {
+	const t = state.villager[key];
 	return t.cost.map((n, i) => {
 		return {
 			...n,
@@ -100,17 +100,18 @@ export const sellCostSelector = (state, name) => {
 	})
 }
 
-export const affectedCurrencySelector = (state, name) => state.villager[name].currency;
+export const affectedCurrencySelector = (state, key) => state.villager[key].targetCurrency;
+export const workerkeySelector = (state, key) => state.villager[key].name;
+export const workerSelector = (state, key) => state.villager[key];
+export const classesSelector = (state) => Object.keys(state.villager);
 
-export const classesSelector = (state) => Object.entries(state.villager).map( n => n.name );
-
+//reducer
 export default function (state = initialState, action){
 	switch (action.type){
 		case ADD_WORKER:
 			const t = state[action.id];
 			return {
 				...state,
-				population: state.population + 1,
 				[action.id]: {
 					...t,
 					quant: state[action.id].quant + action.quant,
@@ -121,7 +122,6 @@ export default function (state = initialState, action){
 			const y = state[action.id];
 			return {
 				...state,
-				population: state.population - 1,
 				[action.id]: {
 					...y,
 					quant: state[action.id].quant - action.quant,

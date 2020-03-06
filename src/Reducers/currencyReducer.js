@@ -1,9 +1,5 @@
 import {
 	TICK,
-	GET_COIN,
-	ADD_COIN,
-	REMOVE_COIN,
-	CHANGE_RATE,
 	ADD_WORKER,
 	REMOVE_WORKER,
 } from '../Actions/villagerActions.js';
@@ -77,8 +73,7 @@ const initialState = {
 	},
 }
 
-
-
+//reducer
 export default function (state = initialState, action){
 	switch (action.type){
 		case TICK:
@@ -133,8 +128,7 @@ export default function (state = initialState, action){
 			return initialState;
 
 		case ADD_WORKER:
-			//recieves quant, affected currency, cost
-			const removedCost = action.cost.reduce((a, n) => {
+			let removedCost = action.cost.reduce((a, n) => {
 				a[n.currency].quant = Math.round(a[n.currency].quant - n.quant);
 				return a;
 			}, JSON.parse(JSON.stringify(state)));
@@ -145,7 +139,7 @@ export default function (state = initialState, action){
 			};
 
 		case REMOVE_WORKER:
-			const addedCost = action.cost.reduce((a, n) => {
+			let addedCost = action.cost.reduce((a, n) => {
 				a[n.currency].quant = Math.round(a[n.currency].quant + n.quant);
 				return a;
 			}, JSON.parse(JSON.stringify(state)));
@@ -153,36 +147,6 @@ export default function (state = initialState, action){
 			addedCost[action.modifiedCurrency].rate = addedCost[action.modifiedCurrency].rate - action.quant;
 			return {
 				...addedCost,
-			};
-
-		case CHANGE_RATE:
-			const u = state[action.id]
-			return {
-				...state,
-				[action.id]: {
-					...u,
-					rate: u.rate + action.rate
-				}
-			};
-
-		case ADD_COIN:
-			const y = state[action.id];
-			return {
-				...state,
-				[action.id]: {
-					...y,
-					quant: Math.round(y.quant + action.quant)
-				}
-			};		
-
-		case REMOVE_COIN:			
-			const t = state[action.id];
-			return {
-				...state,
-				[action.id]: {
-					...t,
-					quant: Math.round(t.quant - action.quant)
-				}
 			};
 
 		default:

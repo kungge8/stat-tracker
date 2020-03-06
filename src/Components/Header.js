@@ -14,7 +14,7 @@ import {
 class Header extends Component {
 	resetState = (e) => {
 		const r = window.confirm("Are you sure?");
-		if (r == true){
+		if (r === true){
 			clearState();
 			this.props.resetGame();
 		}

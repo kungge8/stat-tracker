@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import HeroBlock from './HeroBlock.js';
 import {
@@ -6,24 +7,35 @@ import {
 	Card
 } from '@material-ui/core';
 
+import {
+	classesSelector,
+} from '../Reducers/villageReducer.js';
 
-
-export default class HeroesContainer extends Component {
+class HeroesContainer extends Component {
 	render() {
 		return (
 			<Card className = "bodyContainer">
-				<HeroBlock class = 'Scientist' quant = {1} />
-				<hr />
-				<HeroBlock class = 'Lumberjack' quant = {1} />
-				<hr />
-				<HeroBlock class = 'Miner' quant = {1} />
-				<hr />
-				<HeroBlock class = 'Farmer' quant = {1} />
-				<hr />
-				<HeroBlock class = 'Hunter' quant = {1} />
-				<hr />
-				<HeroBlock class = 'Priest' quant = {1} />
+				{this.props.workerNameList.map((n, i, a) => {
+					if (i === a.length - 1){
+						return (
+							<HeroBlock key = {n} class = {n} quant = {1} />
+						);
+					} else {
+						return (
+							<Box key = {n}>
+								<HeroBlock class = {n} quant = {1} />
+								<hr />
+							</Box>
+						);						
+					}
+				})}
 			</Card>
 		);
 	}
 }
+
+const mapStateToProps = (state) => ({
+	workerNameList: classesSelector(state),
+});
+
+export default connect(mapStateToProps)(HeroesContainer);

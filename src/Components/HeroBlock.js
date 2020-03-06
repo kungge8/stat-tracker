@@ -14,7 +14,7 @@ import {
 import {
 	buyCostSelector,
 	sellCostSelector,
-	affectedCurrencySelector
+	workerSelector,
 } from '../Reducers/villageReducer.js';
 import {
 	verifyCostAvailable,
@@ -24,25 +24,24 @@ class HeroBlock extends Component {
 	handleBuy = (e) => {
 		const temp = this.props;
 		const curr = this.props.currency;
-		const cl = this.props[this.props.class];
+		console.log(temp.worker);
 
 		if (verifyCostAvailable(temp.buyCost, curr)){
-			temp.addWorker(temp.class, temp.quant, temp.targetCurrency, temp.buyCost);
+			temp.addWorker(temp.class, temp.quant, temp.worker.currency, temp.buyCost);
 		}
 	}
 
 	handleSell = (e) => {
 		const temp = this.props;
-		const curr = this.props.currency;
-		const cl = this.props[this.props.class];
+		const cl = this.props.worker;
 
 		if(cl.quant > 0){
-			temp.removeWorker(temp.class, temp.quant, temp.targetCurrency, temp.sellCost);
+			temp.removeWorker(temp.class, temp.quant, temp.worker.currency, temp.sellCost);
 		}
 	}
 
 	render() {
-		const s = this.props[this.props.class];
+		const s = this.props.worker;
 		return (
 			<Box className = 'heroBlockMainBody'>
 				<Box className = 'infoBlock'>
@@ -68,10 +67,9 @@ class HeroBlock extends Component {
 
 const mapStateToProps = (state, ownProps) => ({
 	currency: state.currency,
-	[ownProps.class]: state.villager[ownProps.class],
+	worker: workerSelector(state, ownProps.class),
 	buyCost: buyCostSelector(state, ownProps.class),
 	sellCost: sellCostSelector(state, ownProps.class),
-	targetCurrency: affectedCurrencySelector(state, ownProps.class),
 });
 
 export default connect(mapStateToProps, { addWorker, removeWorker })(HeroBlock);
